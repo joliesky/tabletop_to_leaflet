@@ -1,13 +1,18 @@
 // Set view of Leaflet map based on screen size
 if ($(window).width() < 626) {
-	var map = new L.Map('map').setView([42,-93],6);
+	var map = new L.Map('map').setView([35.1,-106.6],11);
 } else {
-	var map = new L.Map('map').setView([42,-91.5],7);
+	var map = new L.Map('map').setView([35.13,-106.53],12);
 }
 
 // Information for the base tile via Cloudmade
-var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/f14689c8008d43da9028a70e6a8e710a/2402/256/{z}/{x}/{y}.png'
-var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18});
+var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png'
+var cloudmade = new L.TileLayer(cloudmadeUrl, {
+	attribution: 'Jolie McCullough, Albuquerque Journal | Map data &copy; City of Albuquerque, Imagery &copy; 2011 CloudMade',
+	key: '09cb1b5940994a2695239c8c775524ef',
+	styleId: 106670,
+	maxZoom: 18
+});
 // Add to map
 map.addLayer(cloudmade);
 
@@ -16,7 +21,7 @@ map.addLayer(cloudmade);
 // First we'll initialize Tabletop with our spreadsheet
 var jqueryNoConflict = jQuery;
 jqueryNoConflict(document).ready(function(){
-	initializeTabletopObject('0As3JvOeYDO50dF9NWWRiaTdqNmdKQ1lCY3dpdDhZU3c');
+	initializeTabletopObject('0AjA5lxcZKkY5dEhCcWtOS1ppMWNaeXUyc0pYN0kxVlE');
 });
 
 // Pull data from Google spreadsheet
@@ -41,11 +46,10 @@ function startUpLeafet(tabletopData) {
 		// Our table columns
 		// Change 'brewery', 'address', etc.
 		// To match table column names in your table
-		var dataOne = tabletopData[num].brewery;
+		var dataOne = tabletopData[num].location;
 		var dataTwo = tabletopData[num].address;
-		var dataThree = tabletopData[num].city;
-		var dataFour= tabletopData[num].phone;
-		var dataFive = tabletopData[num].website;
+		var dataThree = tabletopData[num].quadrant;
+		var dataFour= tabletopData[num].whentovotethere;
 
 		// Pull in our lat, long information
 		var dataLat = tabletopData[num].latitude;
@@ -63,9 +67,7 @@ function startUpLeafet(tabletopData) {
     	popup += "<div class='popup_box_header'><strong>" + dataOne + "</strong></div>";
     	popup += "<hr />";
     	popup += "<strong>Address:</strong> " + dataTwo + "<br />";
-    	popup += "<strong>City:</strong> " + dataThree + "<br />";
-    	popup += "<strong>Phone:</strong> " + dataFour + "<br />";
-    	popup += "<strong>Website:</strong> " + dataFive + "<br />";
+    	popup += "<strong>Open:</strong> " + dataFour + "<br />";
     	popup += "</div>";
     	// Add to our marker
 		layer.bindPopup(popup);

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/tabletop.js"></script>
+<script type="text/javascript">
+  window.onload = function() { init() };
+
+  var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0AjA5lxcZKkY5dEhCcWtOS1ppMWNaeXUyc0pYN0kxVlE&single=true&gid=0&output=html';
+
+  function init() {
+    Tabletop.init( { key: public_spreadsheet_url,
+                     callback: showInfo,
+                     simpleSheet: true } )
+  }
+
+  function showInfo(data, tabletop) {
+    alert("Successfully processed!")
+    console.log(data);
+  }
+</script>
+</head>
+<body>
+</body>
+</html>
